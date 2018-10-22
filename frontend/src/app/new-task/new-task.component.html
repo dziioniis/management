@@ -1,0 +1,52 @@
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal"
+        (click)="_openModal(template)">
+  Create new task
+</button>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{editMode ? "Edit": "Create"}}  new User</h4>
+    <button type="button" class="close pull-right"
+            aria-label="Close" (click)="_closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label>project code</label>
+      <input class="form-control" name="projectCode" [(ngModel)]="editableBa.projectCode" #username="ngModel" required/>
+      <div [hidden]="projectCode.valid || projectCode.untouched" class="alert alert-danger">
+        Pls set projectCode <!--Easy way to create client validation-->
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <input class="form-control" name="description" [(ngModel)]="editableBa.description" #password="ngModel" required/>
+    </div>
+    <div class="form-group">
+      <label>priority</label>
+      <input class="form-control" name="priority" [(ngModel)]="editableBa.priority" #email="ngModel"
+             required pattern="[a-zA-Z0-9_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,4}"/>
+    </div>
+    <div class="form-group">
+      <label>Due Date</label>
+      <input class="form-control" name="role" [(ngModel)]="editableBa.dueDate" #role="ngModel"/>
+    </div>
+    <div class="form-group">
+      <label>estimation</label>
+      <input class="form-control" name="estimation" [(ngModel)]="editableBa.estimation" #role="ngModel"/>
+    </div>
+    <div class="form-group">
+      <label>Assignee</label>
+      <input class="form-control" name="assginee" [(ngModel)]="editableBa.assignee" #role="ngModel"/>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="_addUser(projectCode,description, priority, dueDate,estimation,assignee)"
+            [disabled]="projectCode.invalid">Create
+    </button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="_closeModal()">Close</button>
+
+  </div>
+</ng-template>

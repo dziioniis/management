@@ -1,0 +1,50 @@
+<ng4-loading-spinner> </ng4-loading-spinner>
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal"
+        (click)="_openModal(template)">
+  Create new user
+</button>
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{editMode ? "Edit": "Create"}}  new User</h4>
+    <button type="button" class="close pull-right"
+            aria-label="Close" (click)="_closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label>Username</label>
+      <input class="form-control" name="username" [(ngModel)]="editableBa.username" #username="ngModel" required/>
+      <div [hidden]="username.valid || username.untouched" class="alert alert-danger">
+        Pls set username <!--Easy way to create client validation-->
+      </div>
+    </div>
+    <div class="form-group">
+      <label>password</label>
+      <input class="form-control" name="password" [(ngModel)]="editableBa.password" #password="ngModel" required/>
+      <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
+        Pls set password
+      </div>
+    </div>
+    <div class="form-group">
+      <label>E-mail</label>
+      <input class="form-control" name="email" [(ngModel)]="editableBa.email" #email="ngModel"
+             required pattern="[a-zA-Z0-9_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,4}"/>
+      <div [hidden]="email.valid || email.untouched" class="alert alert-danger">
+        E-mail is incorrect
+      </div>
+    </div>
+    <div class="form-group">
+      <label>role</label>
+      <input class="form-control" name="role" [(ngModel)]="editableBa.role" #role="ngModel"/>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="_addUser(username,password, email, address)"
+            [disabled]="username.invalid || email.invalid">{{editMode ? "Save": "Create"}}
+    </button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="_closeModal()">Close</button>
+
+  </div>
+</ng-template>

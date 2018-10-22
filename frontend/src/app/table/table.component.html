@@ -1,0 +1,19 @@
+<table class="table">
+<thead class="grey lighten-2">
+<tr>
+  <th scope="col">project</th>
+  <th scope="col">tasks</th>
+  <th scope="col">created</th>
+  <th scope="col">assignee</th>
+  <th scope="col">action</th>
+</tr>
+</thead>
+<tbody>
+<tr *ngFor="let task of tasks">
+  <td scope="row">{{task.projectCode}}</td>
+  <td>{{task.ticketCode}}</td>
+  <td>{{task.description}}</td>
+  <td><button type="button" class="btn btn-info" (click)="_openModal(template, project)">Edit</button></td>
+</tr>
+</tbody>
+</table>
