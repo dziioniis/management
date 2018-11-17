@@ -1,7 +1,7 @@
-<ng4-loading-spinner> </ng4-loading-spinner>
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal"
+<ng4-loading-spinner xmlns="http://www.w3.org/1999/html"> </ng4-loading-spinner>
+<button type="button" class="btn  btn-link" data-toggle="modal" data-target="#exampleModal"
         (click)="_openModal(template)">
-  Create new user
+  <i class="fa fa-user-plus fa-3x" style="color:#fff"></i>
 </button>
 <ng-template #template>
   <div class="modal-header">
@@ -14,16 +14,18 @@
   <div class="modal-body">
     <div class="form-group">
       <label>Username</label>
-      <input class="form-control" name="username" [(ngModel)]="editableBa.username" #username="ngModel" required/>
+      <input class="form-control" name="username" [(ngModel)]="editableBa.username" #username="ngModel" required
+             required pattern="[a-zA-Z0-9_]{4,20}"/>
       <div [hidden]="username.valid || username.untouched" class="alert alert-danger">
-        Pls set username <!--Easy way to create client validation-->
+        Pls set valid username
       </div>
     </div>
     <div class="form-group">
       <label>password</label>
-      <input class="form-control" name="password" [(ngModel)]="editableBa.password" #password="ngModel" required/>
+      <input class="form-control" type="password" name="password" [(ngModel)]="editableBa.password" #password="ngModel"
+             required pattern="[a-zA-Z0-9_]{6,15}"/>
       <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
-        Pls set password
+        simple password
       </div>
     </div>
     <div class="form-group">
@@ -36,13 +38,18 @@
     </div>
     <div class="form-group">
       <label>role</label>
-      <input class="form-control" name="role" [(ngModel)]="editableBa.role" #role="ngModel"/>
+      <select class="form-control form-control-lg" name="role" [(ngModel)]="editableBa.role" #role="ngModel"
+             required>
+      <option value="DEVELOPER">Developer</option>
+        <option value="TESTER">Tester</option>
+        <option value="MANAGER">Project Manager</option>
+        <option value="ADMIN">admin</option>
+    </select>
     </div>
-
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-default" (click)="_addUser(username,password, email, address)"
-            [disabled]="username.invalid || email.invalid">{{editMode ? "Save": "Create"}}
+    <button type="button" class="btn btn-default" (click)="_addUser(username,password,email,role)"
+            [disabled]="username.invalid || email.invalid || password.invalid || role.invalid">create
     </button>
     <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="_closeModal()">Close</button>
 

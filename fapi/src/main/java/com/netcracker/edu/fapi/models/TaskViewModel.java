@@ -15,6 +15,24 @@ public class TaskViewModel {
     private String updatedDate;
     private String dueDate;
     private String reporter;
+    private String estimation;
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getEstimation() {
+        return estimation;
+    }
+
+    public void setEstimation(String estimation) {
+        this.estimation = estimation;
+    }
 
     @Override
     public String toString() {

@@ -15,10 +15,17 @@ import java.util.List;
 public class TaskDataImpl implements TaskDataService {
     @Value("${backend.server.url}")
     private String backendServerUrl;
+
     @Override
     public TaskViewModel saveTask(TaskViewModel taskViewModel) {
-        RestTemplate restTemplate =new RestTemplate();
-        return restTemplate.postForEntity(backendServerUrl+"/api/task",taskViewModel,TaskViewModel.class).getBody();
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.postForEntity(backendServerUrl + "/api/task", taskViewModel, TaskViewModel.class).getBody();
+    }
+    @Override
+    public TaskViewModel updateTask(TaskViewModel taskViewModel) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.postForEntity( backendServerUrl+ "/api/task/update", taskViewModel, TaskViewModel.class).getBody();
     }
 
     @Override
@@ -26,5 +33,11 @@ public class TaskDataImpl implements TaskDataService {
         RestTemplate restTemplate = new RestTemplate();
         TaskViewModel[] taskViewModelResponse = restTemplate.getForObject(backendServerUrl + "/api/task", TaskViewModel[].class);
         return taskViewModelResponse == null ? Collections.emptyList() : Arrays.asList(taskViewModelResponse);
+    }
+
+    @Override
+    public TaskViewModel getByTask(String name) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.postForEntity(backendServerUrl + "/api/task/{name}", name, TaskViewModel.class).getBody();
     }
 }

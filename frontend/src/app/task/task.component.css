@@ -1,0 +1,8 @@
+.p{
+     background:light;
+    font-size:14px;
+    font-weight: bold;
+}
+.comments-list .media{
+    border-bottom: 1px dotted #ccc;
+}

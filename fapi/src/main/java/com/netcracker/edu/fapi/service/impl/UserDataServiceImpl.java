@@ -9,6 +9,8 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 @Service
 public class UserDataServiceImpl implements UserDataService {
@@ -16,7 +18,9 @@ public class UserDataServiceImpl implements UserDataService {
     private String backendServerUrl;
     @Override
     public List<UserViewModel> getAll() {
-        return null;
+        RestTemplate restTemplate = new RestTemplate();
+        UserViewModel[] userViewModelResponse = restTemplate.getForObject(backendServerUrl + "/api/user", UserViewModel[].class);
+        return userViewModelResponse == null ? Collections.emptyList() : Arrays.asList(userViewModelResponse);
     }
 
     @Override
@@ -26,22 +30,15 @@ public class UserDataServiceImpl implements UserDataService {
 
     @Override
     public UserViewModel saveUser(UserViewModel user) {
+        System.out.println("UUUUUUUUUUUSER2222"+user.toString());
         ClientHttpRequestFactory requestFactory = new
                     HttpComponentsClientHttpRequestFactory(HttpClients.createDefault());
         RestTemplate restTemplate = new RestTemplate(requestFactory);
-        System.out.println("before request");
-        System.out.println("SERVER"+restTemplate.postForEntity(backendServerUrl + "/api/user", user, UserViewModel.class).getBody());
-        return restTemplate.postForEntity(backendServerUrl + "/api/user",user, UserViewModel.class).getBody();
+               return restTemplate.postForEntity(backendServerUrl + "/api/user",user, UserViewModel.class).getBody();
     }
 
-    /* @Override
-    public BillingAccountViewModel saveBillingAccount(BillingAccountViewModel account) {
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForEntity(backendServerUrl + "/api/billing-accounts", account, BillingAccountViewModel.class).getBody();
-    }*/
 
     @Override
     public void deleteUser(Long id) {
-
     }
 }

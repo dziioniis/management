@@ -4,16 +4,15 @@ import com.netcracker.edu.backend.entity.User;
 import com.netcracker.edu.backend.repository.UserRepository;
 import com.netcracker.edu.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserService {
-    private UserRepository userRepository;
+public class UserServiceImpl implements UserService  {
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private UserRepository userRepository;
 
     @Override
     public User saveUser(User user) {
@@ -23,5 +22,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id) {
     userRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<User> getUsers() {
+       return userRepository.findByRole("DEVELOPER","TESTER");
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username);
     }
 }

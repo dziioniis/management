@@ -7,7 +7,10 @@ export class Task{
   dueDate:string;
   estimation:string;
   assignee:string;
-  createdData:string;
-  updatedData:string;
-  reporter:String;
+  createdDate:string;
+  updatedDate:string;
+  reporter:string;
+  status:string;
+  resolved:string;
+  closed:string;
 }

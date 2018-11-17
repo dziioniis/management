@@ -5,6 +5,7 @@ import {Ng4LoadingSpinnerService} from "ng4-loading-spinner";
 import {Project} from "../model/project";
 import {ProjectService} from "../service/project/project.service";
 
+
 @Component({
   selector: 'app-new-project',
   templateUrl: './new-project.component.html',

@@ -1,7 +1,9 @@
 export class User {
-  id:string;
+     id:  number;
 username: string;
 password: string;
-role: string;
+email: string;
+role:  string;
+active:boolean;
   }
 

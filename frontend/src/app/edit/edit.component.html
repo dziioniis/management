@@ -1,0 +1,210 @@
+<!--
+<button type="button" class="btn btn-secondary btn-block" data-toggle="modal" data-target=".bd-example-modal-lg"
+        (click)="_openModal(template)">
+  <i class="fa fa-edit fa-3x" style="color:#fff"></i>
+</button>
+
+<ng-template #template>
+  <div class="modal fade bd-example-modal-lg" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <h4 class="modal-title pull-left">edit</h4>
+    <button type="button" class="close pull-right"
+            aria-label="Close" (click)="_closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label>Description</label>
+      <input class="form-control" name="description" [(ngModel)]="editableBa.description" #description="ngModel" required/>
+      <div [hidden]="description.valid || description.untouched" class="alert alert-danger">
+        choose priority
+      </div>
+    </div>
+    <div class="form-group">
+      <label>priority</label>
+      <select class="form-control form-control-lg" name="priority" [(ngModel)]="editableBa.priority" #priority="ngModel"
+              required >
+        <option value="blocker">blocker</option>
+        <option value="critical">critical</option>
+        <option value="major">major</option>
+        <option value="normal">normal</option>
+        <option value="minor">minor</option>
+      </select>
+      <div [hidden]="priority.valid || priority.untouched" class="alert alert-danger">
+        choose priority
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Due Date</label>
+      <input class="form-control" name="dueDate" [(ngModel)]="editableBa.dueDate" #dueDate="ngModel"
+             required pattern="\d{1,2}.\d{1,2}.\d{4}"/>
+      <div [hidden]="dueDate.valid || dueDate.untouched" class="alert alert-danger">
+        Due Date is incorrect
+      </div>
+    </div>
+    <div class="form-group">
+      <label>estimation</label>
+      <input class="form-control" name="estimation" [(ngModel)]="editableBa.estimation" #estimation="ngModel" required/>
+      <div [hidden]="estimation.valid || estimation.untouched" class="alert alert-danger">
+        pls set estimation
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Assignee</label>
+      <select class="form-control form-control-lg" name="assginee" [(ngModel)]="editableBa.assignee" #assignee="ngModel" required>
+        <option *ngFor="let user of users" [value]="user.username" selected>{{user.username}}</option>
+      </select>
+      &lt;!&ndash;<input class="form-control" name="assginee" [(ngModel)]="editableBa.assignee" #role="ngModel"/>&ndash;&gt;
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="_addTask(projectCode,description, priority, dueDate,estimation,assignee)"
+            [disabled]="projectCode.invalid || estimation.invalid || dueDate.invalid || priority.invalid
+    || description.invalid">Create
+    </button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="_closeModal()">Close</button>
+
+  </div>
+  <hr>
+  <h3>Details:</h3>
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-sm-2">
+        <h4 class="p-2 text-right">Priority:</h4>
+        <h4 class="p-2 text-right ">Status:</h4>
+      </div>
+      <div class="col-sm-2">
+        <div class="shadow-sm p-2 mb-3 bg-secondary rounded text-white">{{taskFromTable.projectCode}}</div>
+        <div class="shadow-sm p-2 mb-3 bg-secondary rounded text-white">{{taskFromTable.status}}</div>
+      </div>
+      <div class="col-sm-5">
+        <h4 class="p-2 text-right">Assignee:</h4>
+        <h4 class="p-2 text-right ">Reporter:</h4>
+        <h4 class="p-2 text-right ">Estimation:</h4>
+      </div>
+      <div class="col-sm-2">
+        <div class="shadow-sm p-2 mb-3 bg-secondary rounded text-white">{{taskFromTable.assignee}}</div>
+        <div class="shadow-sm p-2 mb-3 bg-secondary rounded text-white">invalid</div>
+        <div class="shadow-sm p-2 mb-3 bg-secondary rounded text-white">{{taskFromTable.estimation}}</div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <h3>Description:</h3>
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="jumbotron">
+          <div class="container">
+            {{taskFromTable.description}}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <h4 class="p-2 text-right">Сreated:</h4>
+        <h4 class="p-2 text-right ">Updated:</h4>
+        <h4 class="p-2 text-right " *ngIf="taskFromTable.resolved!==null">Resolved:</h4>
+        <h4 class="p-2 text-right " *ngIf="taskFromTable.closed!==null">Closed:</h4>
+      </div>
+      <div class="col-sm-2">
+        <div class="shadow-sm p-2 mb-3 bg-secondary rounded text-white">{{taskFromTable.createdDate}}</div>
+        <div class="shadow-sm p-2 mb-3 bg-secondary rounded text-white">{{taskFromTable.createdDate}}</div>
+        <div class="shadow-sm p-2 mb-3 bg-secondary rounded text-white" *ngIf="taskFromTable.resolved!==null">{{taskFromTable.resolved}}</div>
+        <div class="shadow-sm p-2 mb-3 bg-secondary rounded text-white" *ngIf="taskFromTable.closed!==null">{{taskFromTable.closed}}</div>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+  <div class="page-header">
+    <div class="row">
+      <h3> Attachements:</h3>
+      <form>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="customFile">
+          <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+      </form></div>
+  </div>
+</ng-template>
+-->
+<button type="button" class="btn btn-secondary btn-block" (click)="lgModal.show()" (click)="_openModal()">
+  <i class="fa fa-edit fa-3x" style="color:#fff"></i>
+</button>
+
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="dialog-sizes-name1" class="modal-title pull-left">Edit</h3>
+        <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3>Details:</h3>
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-sm-2">
+              <h4 class="p-2 text-right">Priority:</h4>
+              <h4 class="p-2 text-right ">assignee</h4>
+            </div>
+            <div class="col-sm-3">
+              <select class="form-control form-control-lg" style="color:#black  " name="priority" [(ngModel)]="taskFromTable.priority" #priority="ngModel"
+                      required >
+                <option value="blocker">blocker</option>
+                <option value="critical">critical</option>
+                <option value="major">major</option>
+                <option value="normal">normal</option>
+                <option value="minor">minor</option>
+              </select>
+              <div class="form-group">
+                <select class="form-control form-control-lg" name="assginee" [(ngModel)]="taskFromTable.assignee" #assignee="ngModel" required>
+                  <option *ngFor="let user of users" [value]="user.username" selected>{{user.username}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <h4 class="p-2 text-right ">Reporter:</h4>
+              <h4 class="p-2 text-right ">Estimation:</h4>
+            </div>
+            <div class="col-sm-3">
+              <select class="form-control form-control-lg" name="reporter" [(ngModel)]="taskFromTable.reporter" #assignee="ngModel" required>
+                <option *ngFor="let user of users" [value]="user.username" selected>{{user.username}}</option>
+              </select>
+             <input type="text" class="form-control form-control-lg" value="{{taskFromTable.estimation}}" name="estimation" [(ngModel)]="taskFromTable.estimation" #estimation="ngModel">
+            </div>
+            <div class="col-sm-1"></div>
+          </div>
+        </div>
+      <hr>
+        <div class="row">
+          <div class="col-md-6">
+        <h3>Description:</h3>
+          </div>
+          <div class="col-md-6">
+          <h3>Attachements:</h3></div>
+        </div>
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <textarea class="form-control" name="description" id="form10" [(ngModel)]="taskFromTable.description"  rows="5" value="{{taskFromTable.description}}"></textarea>
+              </div>
+              </div>
+            <div class="col-md-6">
+              </div>
+          </div>
+        </div>
+      </div>
+    <hr>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="updateTask(description,priority,estimation,assignee)">
+          Update
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,50 +1,73 @@
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal"
+<button type="button" class="btn  btn-link" style="color:black" data-toggle="modal" data-target="#exampleModal"
         (click)="_openModal(template)">
-  Create new task
+  <i class="fa fa-tasks fa-3x" style="color:#fff"></i>
 </button>
-
 <ng-template #template>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">{{editMode ? "Edit": "Create"}}  new User</h4>
+    <h4 class="modal-title pull-left">{{editMode ? "Edit": "Create"}}  new Task</h4>
     <button type="button" class="close pull-right"
             aria-label="Close" (click)="_closeModal()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
+    <label>project</label>
     <div class="form-group">
-      <label>project code</label>
-      <input class="form-control" name="projectCode" [(ngModel)]="editableBa.projectCode" #username="ngModel" required/>
+    <select class="form-control form-control-lg" name="projectCode" [(ngModel)]="editableBa.projectCode" #projectCode="ngModel" required>
+      <option *ngFor="let project of projects" [value]="project.code" selected>{{ project.code}}</option>
+    </select>
       <div [hidden]="projectCode.valid || projectCode.untouched" class="alert alert-danger">
-        Pls set projectCode <!--Easy way to create client validation-->
+        choose project
       </div>
     </div>
     <div class="form-group">
       <label>Description</label>
-      <input class="form-control" name="description" [(ngModel)]="editableBa.description" #password="ngModel" required/>
+      <input class="form-control" name="description" [(ngModel)]="editableBa.description" #description="ngModel" required/>
+      <div [hidden]="description.valid || description.untouched" class="alert alert-danger">
+        choose priority
+      </div>
     </div>
     <div class="form-group">
       <label>priority</label>
-      <input class="form-control" name="priority" [(ngModel)]="editableBa.priority" #email="ngModel"
-             required pattern="[a-zA-Z0-9_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,4}"/>
+      <select class="form-control form-control-lg" name="priority" [(ngModel)]="editableBa.priority" #priority="ngModel"
+             required >
+        <option value="blocker">blocker</option>
+        <option value="critical">critical</option>
+        <option value="major">major</option>
+        <option value="normal">normal</option>
+        <option value="minor">minor</option>
+      </select>
+      <div [hidden]="priority.valid || priority.untouched" class="alert alert-danger">
+        choose priority
+      </div>
     </div>
     <div class="form-group">
       <label>Due Date</label>
-      <input class="form-control" name="role" [(ngModel)]="editableBa.dueDate" #role="ngModel"/>
+      <input class="form-control" name="dueDate" [(ngModel)]="editableBa.dueDate" #dueDate="ngModel"
+      required pattern="\d{1,2}.\d{1,2}.\d{4}"/>
+      <div [hidden]="dueDate.valid || dueDate.untouched" class="alert alert-danger">
+        Due Date is incorrect
+      </div>
     </div>
     <div class="form-group">
       <label>estimation</label>
-      <input class="form-control" name="estimation" [(ngModel)]="editableBa.estimation" #role="ngModel"/>
+      <input class="form-control" name="estimation" [(ngModel)]="editableBa.estimation" #estimation="ngModel" required/>
+      <div [hidden]="estimation.valid || estimation.untouched" class="alert alert-danger">
+        pls set estimation
+      </div>
     </div>
     <div class="form-group">
       <label>Assignee</label>
-      <input class="form-control" name="assginee" [(ngModel)]="editableBa.assignee" #role="ngModel"/>
+     <select class="form-control form-control-lg" name="assginee" [(ngModel)]="editableBa.assignee" #assignee="ngModel" required>
+        <option *ngFor="let user of users" [value]="user.username" selected>{{user.username}}</option>
+      </select>
     </div>
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-default" (click)="_addUser(projectCode,description, priority, dueDate,estimation,assignee)"
-            [disabled]="projectCode.invalid">Create
+    <button type="button" class="btn btn-default" (click)="_addTask(projectCode,description, priority, dueDate,estimation,assignee)"
+            [disabled]="projectCode.invalid || estimation.invalid || dueDate.invalid || priority.invalid
+    || description.invalid">Create
     </button>
     <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="_closeModal()">Close</button>
 

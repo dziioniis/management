@@ -16,12 +16,18 @@ import java.util.List;
 public class TaskDataController {
     @Autowired
     TaskDataService taskDataService;
+
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<TaskViewModel> saveTask(@RequestBody TaskViewModel taskViewModel /*todo server validation*/) {
+    public ResponseEntity<TaskViewModel> saveTask(@RequestBody TaskViewModel taskViewModel ) {
         return ResponseEntity.ok(taskDataService.saveTask(taskViewModel));
     }
+    @RequestMapping("/update")
+    public ResponseEntity<TaskViewModel> updateTask(@RequestBody TaskViewModel taskViewModel ) {
+        System.out.println(taskViewModel.toString());
+        return ResponseEntity.ok(taskDataService.updateTask(taskViewModel));
+    }
 
-    @RequestMapping
+    @RequestMapping(params = { "page", "size" })
     public ResponseEntity<List<TaskViewModel>> getAllTasks() {
         return ResponseEntity.ok(taskDataService.getAllTasks());
     }

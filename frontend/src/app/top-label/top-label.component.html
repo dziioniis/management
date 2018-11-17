@@ -1,0 +1,25 @@
+<nav class="navbar navbar-dark bg-dark ">
+  <div class="navbar-expand mr-auto">
+    <div class="navbar-nav">
+      <a href="/"><i class="fa fa-fire fa-3x"style="color:#fff"></i></a>
+      <a href="/" class="nav-link"><h1 class="border-right" style="color:#fff">Netracker</h1></a>
+      <div class="container">
+        <div class="row">
+          <div *ngIf="role=='ADMIN'">
+            <app-new-user></app-new-user>
+          </div>
+          <div *ngIf="role=='MANAGER'">
+            <app-new-project></app-new-project>
+          </div>
+          <div *ngIf="role=='MANAGER'">
+            <app-new-task></app-new-task>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="btn btn-link" (click)="logout()">
+    <i class="fa  fa-sign-out fa-3x" style="color:#fff"></i>
+  </button>
+  <app-time style="color:#fff"></app-time>
+</nav>

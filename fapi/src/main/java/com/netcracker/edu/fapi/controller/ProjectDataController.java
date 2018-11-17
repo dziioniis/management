@@ -19,7 +19,7 @@ public class ProjectDataController {
     @Autowired
     ProjectDataService projectDataService;
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<ProjectViewModel> saveProject(@RequestBody ProjectViewModel projectViewModel /*todo server validation*/) {
+    public ResponseEntity<ProjectViewModel> saveProject(@RequestBody ProjectViewModel projectViewModel ) {
             return ResponseEntity.ok(projectDataService.saveProjectViewModel(projectViewModel));
     }
 

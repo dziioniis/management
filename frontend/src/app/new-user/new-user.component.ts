@@ -30,8 +30,7 @@ public _openModal(template: TemplateRef<any>, user: User): void {
       this.refreshBa();
       this.editMode = false;
     }
-    this.modalRef = this.modalService.show(template); // and when the user clicks on the button to open the popup
-                                                      // we keep the modal reference and pass the template local name to the modalService.
+    this.modalRef = this.modalService.show(template);
   }
   public _addUser(): void {
     this.loadingService.show();

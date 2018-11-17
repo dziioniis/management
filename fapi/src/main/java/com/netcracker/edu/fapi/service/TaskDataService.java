@@ -6,7 +6,11 @@ import java.util.List;
 
 public interface TaskDataService {
     TaskViewModel saveTask(TaskViewModel taskViewModel);
+
+    TaskViewModel updateTask(TaskViewModel taskViewModel);
+
     List<TaskViewModel> getAllTasks();
+    TaskViewModel getByTask(String name);
 }
 
 

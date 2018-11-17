@@ -18,15 +18,13 @@ import java.util.List;
 public class ProjectDataImpl implements ProjectDataService {
     @Value("${backend.server.url}")
     private String backendServerUrl;
+
     @Override
     public ProjectViewModel saveProjectViewModel(ProjectViewModel projectViewModel) {
-        ClientHttpRequestFactory requestFactory = new
-                HttpComponentsClientHttpRequestFactory(HttpClients.createDefault());
-        RestTemplate restTemplate = new RestTemplate(requestFactory);
-        System.out.println("before request");
-        System.out.println(projectViewModel.toString());
-        System.out.println("SERVER"+restTemplate.postForEntity(backendServerUrl + "/api/project", projectViewModel, ProjectViewModel.class).getBody());
-        return restTemplate.postForEntity(backendServerUrl + "/api/project", projectViewModel, ProjectViewModel.class).getBody();
+ /*       ClientHttpRequestFactory requestFactory = new
+                HttpComponentsClientHttpRequestFactory(HttpClients.createDefault());*/
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.postForEntity(backendServerUrl + "/api/project",projectViewModel, ProjectViewModel.class).getBody();
     }
 
     @Override

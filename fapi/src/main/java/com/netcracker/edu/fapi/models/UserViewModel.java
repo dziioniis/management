@@ -10,6 +10,15 @@ public class UserViewModel {
     private String username;
     private String email;
     private String role;
+    private Boolean active;
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 
     public UserViewModel() {
     }

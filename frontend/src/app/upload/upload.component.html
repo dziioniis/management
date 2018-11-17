@@ -1,0 +1,34 @@
+  <label class="btn btn-default btn-file">
+    <h3>add Attachements:</h3><input type="file"  ng2FileSelect [uploader]="uploader" style="display: none;">
+  </label>
+  <div class="container text-center">
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th width="80%">Name</th>
+      <th >action</th>
+      <th>delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of uploader.queue"[hidden]="item.isReady || item.isUploading || item.isSuccess">
+      <td><strong>{{ item?.file?.name }}</strong></td>
+      <td nowrap>
+        <button type="button" class="btn btn-secondary btn-xs"
+                (click)="item.upload()" >
+          <span class="glyphicon glyphicon-upload"></span> Upload
+        </button>
+      </td>
+      <td nowrap>
+        <button type="button" class="btn btn-danger btn-xs"
+                (click)="item.remove()">
+          <span class="glyphicon glyphicon-trash"></span> Remove
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let att of attachements"><td>{{att.name}}</td>
+    <td><a href="http://localhost:8080/api/download/{{att.id}}" class="button">download</a></td>
+    <td>delete</td></tr>
+    </tbody>
+  </table>
+  </div>
