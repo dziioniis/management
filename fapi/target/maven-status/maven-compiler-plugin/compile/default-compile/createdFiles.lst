@@ -1,7 +1,0 @@
-com\netcracker\edu\fapi\controller\BillingAccountDataController.class
-com\netcracker\edu\fapi\FapiApplication.class
-com\netcracker\edu\fapi\models\BookViewModel.class
-com\netcracker\edu\fapi\models\BillingAccountViewModel.class
-com\netcracker\edu\fapi\filter\CorsFilter.class
-com\netcracker\edu\fapi\service\impl\BillingAccountDataServiceImpl.class
-com\netcracker\edu\fapi\service\BillingAccountDataService.class
