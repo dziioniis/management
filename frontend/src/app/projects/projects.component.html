@@ -1,0 +1,30 @@
+<div  class="center">
+  <app-top-label></app-top-label>
+ <carousel >
+    <slide *ngFor="let page of pages">
+      <div class=" row">
+        <div class="col-md-1"><a   style="text-decoration: none" (click)="setPrev()"><span class="text-left"><i
+          class="fa fa-arrow-circle-left fa-2x"></i> </span></a></div>
+        <div class="col-md-10"><h1 class="text-center mb-3"> Projects</h1></div>
+        <div class="col-md-1"><a  (click)="setNext()"><span style="padding-left: 30px"><i
+          class="fa fa-arrow-circle-right fa-2x"></i> </span></a></div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-4" *ngFor=" let project of projects">
+          <div class="card-box">
+            <div class="card-title">
+              <h2>{{project.code}}</h2>
+              <p>{{project.summary}}</p>
+            </div>
+            <app-project [project]='project'></app-project>
+          </div>
+        </div>
+      </div>
+    </slide>
+  </carousel>
+</div>
+<div class="sidenav">
+</div>
+<div class="sideRight">
+</div>

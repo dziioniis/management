@@ -1,0 +1,89 @@
+<ng4-loading-spinner xmlns="http://www.w3.org/1999/html"></ng4-loading-spinner>
+<button type="button" class="btn  btn-outline-dark pull-right" data-toggle="modal" data-target="#exampleModal"
+        (click)="_openModal(template)">
+  show
+</button>
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{project.code}}</h4>
+    <button type="button" class="close pull-right"
+            aria-label="Close" (click)="_closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!--   <div class="col-md-12">
+         <h3 class="text-center">Details:</h3>
+         <span class="text left" style="font-size: 150%">author:</span>
+         <br>
+         <span class="text left" style="font-size: 150%">Created date:</span><br>
+         <span class="text left" style="font-size: 150%">status:</span>
+         <span class="text left" style="font-size: 150%;padding-left: 30%">Closed date:</span>
+
+         </div>-->
+    <div class="row">
+      <div class="col-sm-4">
+        <h4 class="p-2 text-right">author:</h4>
+        <h4 class="p-2 text-right ">Status:</h4>
+        <h4 class="p-2 text-right">Сreated:</h4>
+        <h4 class="p-2 text-right" *ngIf="project.closed!=null">Сlosed:</h4>
+      </div>
+      <div class="col-sm-8">
+        <div class="shadow-sm p-2 mb-3 bg-light rounded text-dark">{{project.author}}</div>
+        <div class="shadow-sm p-2 mb-3 bg-light rounded text-dark">{{project.status}}</div>
+        <div class="shadow-sm p-2 mb-3 bg-light rounded text-dark">{{project.createdDate}}</div>
+        <div class="shadow-sm p-2 mb-3 bg-light rounded text-dark" *ngIf="project.closed!=null">{{project.closed}}</div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <h3 class="text-center" *ngIf="task.length!=0">Tasks:</h3>
+      <accordion>
+        <accordion-group *ngFor="let task of task" heading="{{task.ticketCode}}">
+          {{task.description}}<span class="pull-right"><button type="button" class="btn btn-link"
+                                                               (click)="setTask(task)">more...</button></span>
+        </accordion-group>
+      </accordion>
+    </div>
+    <div class="col-md-12">
+      <h3 class="text-center">Description:</h3>
+      <div class="jumbotron">
+        <div class="container">
+          {{project.summary}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="form-group">
+     <label>Username</label>
+     <input class="form-control" name="username" [(ngModel)]="editableBa.username" #username="ngModel" required
+            required pattern="[a-zA-Z0-9_]{4,20}"/>
+     <div [hidden]="username.valid || username.untouched" class="alert alert-danger">
+       Pls set valid username
+     </div>
+   </div>
+
+   <div class="form-group">
+     <label>E-mail</label>
+     <input class="form-control" name="email" [(ngModel)]="editableBa.email" #email="ngModel"
+            required pattern="[a-zA-Z0-9_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,4}"/>
+     <div [hidden]="email.valid || email.untouched" class="alert alert-danger">
+       E-mail is incorrect
+     </div>
+   </div>-->
+  <!--  <div class="form-group">
+      <label>role</label>
+      <select class="form-control form-control-lg" name="role" [(ngModel)]="editableBa.role" #role="ngModel"
+              required>
+        <option value="DEVELOPER">Developer</option>
+        <option value="TESTER">Tester</option>
+        <option value="MANAGER">Project Manager</option>
+        <option value="ADMIN">admin</option>
+      </select>
+    </div>
+  </div>-->
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="_closeModal()">Close</button>
+
+  </div>
+</ng-template>
+

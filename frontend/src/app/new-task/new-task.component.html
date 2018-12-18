@@ -1,0 +1,81 @@
+<button type="button" class="btn  btn-link" style="color:black" data-toggle="modal" data-target="#exampleModal"
+        (click)="_openModal(template)">
+  <i class="fa fa-plus-circle fa-1x" style="color:black">New task</i>
+</button>
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">new Task</h4>
+    <button type="button" class="close pull-right"
+            aria-label="Close" (click)="_closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="z-index: 1200">
+    <label>project</label>
+    <div class="form-group">
+      <select class="form-control form-control-lg" data-live-search="true" name="projectCode"
+              [(ngModel)]="editableBa.projectCode"
+              #projectCode="ngModel" required>
+        <option *ngFor="let project of projects" [value]="project.code" selected>{{ project.code}}</option>
+      </select>
+      <div [hidden]="projectCode.valid || projectCode.untouched" class="alert alert-danger">
+        choose project
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <input class="form-control" name="description" placeholder="describe your task" [(ngModel)]="editableBa.description" #description="ngModel"
+             required maxlength="70"/>
+      <div [hidden]="description.valid || description.untouched" class="alert alert-danger">
+        set description
+      </div>
+    </div>
+    <div class="form-group">
+      <label>priority</label>
+      <select class="form-control form-control-lg" name="priority" [(ngModel)]="editableBa.priority" #priority="ngModel"
+              required>
+        <option value="blocker">blocker</option>
+        <option value="critical">critical</option>
+        <option value="major">major</option>
+        <option value="normal">normal</option>
+        <option value="minor">minor</option>
+      </select>
+      <div [hidden]="priority.valid || priority.untouched" class="alert alert-danger">
+        choose priority
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Due Date</label>
+      <input class="form-control" name="dueDate"  placeholder="date"  [minDate]="date" [(ngModel)]="editableBa.dueDate" #dueDate="ngModel" bsDatepicker
+             required/>
+      <div [hidden]="dueDate.valid || dueDate.untouched" class="alert alert-danger">
+        format:nn.xx.tttt
+      </div>
+    </div>
+    <div class="form-group">
+      <label>estimation</label>
+      <input class="form-control" placeholder="enter amount of days" name="estimation" [(ngModel)]="editableBa.estimation" #estimation="ngModel" required pattern="^(0|[1-9][0-9]*)$"/>
+      <div [hidden]="estimation.valid || estimation.untouched" class="alert alert-danger">
+        please set amount of day
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Assignee</label>
+      <select class="form-control form-control-lg" name="assginee" [(ngModel)]="editableBa.assignee" #assignee="ngModel"
+              required>
+          <option *ngFor="let user of users" [value]="user.username">
+            {{user.username}}</option>
+      </select>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default"
+            (click)="_addTask(projectCode,description, priority, dueDate,estimation,assignee)"
+            [disabled]="projectCode.invalid || estimation.invalid || dueDate.invalid || priority.invalid
+    || description.invalid">Create
+    </button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="_closeModal()">Close</button>
+
+  </div>
+</ng-template>

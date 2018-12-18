@@ -1,0 +1,7 @@
+<div *ngIf="!user;else table">
+<app-login></app-login></div>
+<ng-template #table>
+  <app-table></app-table>
+</ng-template>
+
+

@@ -1,0 +1,67 @@
+<button type="button" class="btn  btn-link dropdown-item" data-toggle="modal" data-target="#exampleModal"
+        (click)="_openModal(template)">
+  <i class="fa fa-user-md fa-1x" style="color:black">Profile</i>
+</button>
+
+<ng-template #template>
+  <tabset [justified]="true">
+    <tab heading="Profile">
+      <div class="modal-header">
+    <i class="fa fa-user-secret fa-2x"><span style="font-size: 150%">{{editableBa.username}}</span></i></div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-2">
+            <h4 class="p-2 text-right">mail:</h4>
+            <h4 class="p-2 text-right ">role:</h4>
+          </div>
+          <div class="col-sm-10">
+            <div class="shadow-sm p-2 mb-3 bg-light rounded text-dark">{{editableBa.email}}</div>
+            <div class="shadow-sm p-2 mb-3 bg-light rounded text-dark">{{role}}</div>
+          </div>
+          <div class="col-md-12">
+            <h3 class="text-center">Tasks:</h3>
+            <accordion >
+              <accordion-group *ngFor="let task of task" heading="{{task.ticketCode}}">
+                {{task.description}}<span class="pull-right"><button type="button" class="btn btn-link" (click)="setTask(task)">more...</button></span>
+              </accordion-group>
+            </accordion>
+          </div>
+        </div>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="_closeModal()">Close</button>
+      </div>
+    </tab>
+    <tab heading="Edit">
+      <div class="modal-header">
+        <i class="fa fa-edit fa-2x"><span style="font-size: 150%">Edit</span></i></div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>E-mail</label>
+          <input class="form-control" name="email" [value]="editableBa.email" [(ngModel)]="editableBa.email"
+                 #email="ngModel"
+                 required pattern="[a-zA-Z0-9_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,4}"/>
+          <div [hidden]="email.valid || email.untouched" class="alert alert-danger">
+            E-mail is incorrect
+          </div>
+        </div>
+        <div class="form-group">
+          <label>password</label>
+          <input class="form-control" type="password" name="password" [(ngModel)]="editableBa.password" #password="ngModel"
+                 required pattern="[a-zA-Z0-9_]{6,15}"/>
+          <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
+            simple password,should consist of 6 ang more letters.
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="_updateUser(password,email)"
+                [disabled]="(email.invalid || email.untouched) && (password.invalid || password.untouched)">update
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="_closeModal()">Close</button>
+      </div>
+    </tab>
+  </tabset>
+</ng-template>
+
+

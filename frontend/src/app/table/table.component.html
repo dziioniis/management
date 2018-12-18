@@ -1,0 +1,69 @@
+<div class="sidenav">
+</div>
+<div class="sideRight">
+</div>
+<div *ngIf="task==null; else templateName" class="center">
+  <app-top-label></app-top-label>
+  <div class="container text-center">
+    <br>
+    <div class="row">
+      <br>
+      <div class="col-sm-5"></div>
+      <div><input class="form-control" type="text" placeholder="Search" maxlength="25" [(ngModel)]="ticketCode" aria-label="Search">
+      </div>
+      <div>
+        <button type="button" class="btn  btn-link" (click)="searchTask(ticketCode)">
+          <i class="fa fa-search fa-2x" style="color:black">
+          </i></button>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-2" style="width:15%"></div>
+      <div class="col-md-8">
+        <table class="table   table-hover">
+          <thead class="thead">
+          <tr>
+            <th scope="col">Project</th>
+            <th>tasks</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Created</th>
+            <th scope="col">Assignee</th>
+            <th scope="col">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let task of tasks">
+            <td scope="row">{{task.projectCode}}</td>
+            <td>{{task.ticketCode}}</td>
+            <td>{{task.priority}}</td>
+            <td>{{task.createdDate}}</td>
+            <td>{{task.assignee}}</td>
+            <td>
+              <button type="button" class="btn btn-link" (click)="setTask(task)"><i class="fa fa-edit fa-2x"
+                                                                                    style="color:black"></i></button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-10">
+        <div class="pull-right">
+          <ul class="nav nav-pills">
+            <li class="nav-item" *ngFor="let p of pages; let i=index">
+              <a class="page-link" style="color:black" href="#" (click)="setPage(i,$event)">{{i}}</a></li>
+          </ul>
+        </div>
+      </div>
+    <div class="col-md-2"></div>
+    </div>
+  </div>
+</div>
+
+<ng-template #templateName>
+  <app-task class="centerTask"></app-task>
+</ng-template>
+

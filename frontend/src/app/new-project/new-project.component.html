@@ -1,0 +1,41 @@
+<button type="button" class="btn  btn-link" data-toggle="modal" data-target="#exampleModal"
+        (click)="_openModal(template)">
+  <i class="fa fa-plus fa-31" style="color:black">New roject</i>
+</button>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">new Project</h4>
+    <button type="button" class="close pull-right"
+            aria-label="Close" (click)="_closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label>project code</label>
+      <input class="form-control" name="code" [(ngModel)]="editableBa.code" #code="ngModel" required pattern="[a-zA-Z0-9_]{4,15}" maxlength="25"/>
+      <div [hidden]="code.valid || code.untouched" class="alert alert-danger">
+        Pls set correct code
+      </div>
+      <div [hidden]="getResult()" class="alert alert-danger">
+        Pls set correct code
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>summary</label>
+      <input class="form-control" name="summary" [(ngModel)]="editableBa.summary" #summary="ngModel" required maxlength="70"/>
+      <div [hidden]="summary.valid || summary.untouched" class="alert alert-danger">
+        Pls set correct summary
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="_addProject(code,project)"
+            [disabled]="code.invalid || summary.invalid">create
+    </button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="_closeModal()">Close</button>
+  </div>
+</ng-template>
+

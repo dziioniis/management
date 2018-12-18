@@ -1,0 +1,91 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Netracker</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+        <div class="btn-group" dropdown>
+          <button id="button-basic" dropdownToggle type="button" class="btn btn-link dropdown-toggle"
+                  style="color: black;" aria-controls="dropdown-basic">
+            <i class="fa fa-paper-plane fa-31" style="color:black">Project</i>
+            <span class="caret"></span>
+          </button>
+          <ul id="dropdown-sc" *dropdownMenu class="dropdown-menu"
+              role="menu" aria-labelledby="button-basic">
+            <li role="menuitem" *ngIf="role=='MANAGER'">
+              <app-new-project></app-new-project>
+            </li>
+            <li role="menuitem">
+              <button type="button" class="btn  btn-link" data-toggle="modal" data-target="#exampleModal"
+                      onclick="window.location.href='/projects'">
+                <i class="fa fa-product-hunt fa-31" style="color:black">Get projects</i>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item ">
+        <div class="btn-group" dropdown>
+          <button id="button-bas" dropdownToggle type="button" class="btn btn-link dropdown-toggle"
+                  style="color: black;" aria-controls="dropdown-basic">
+            <i class="fa fa-thumb-tack fa-31" style="color:black">Task</i>
+            <span class="caret"></span>
+          </button>
+          <ul id="dropdown-sic" *dropdownMenu class="dropdown-menu"
+              role="menu" aria-labelledby="button-basic">
+            <li role="menuitem" *ngIf="role=='MANAGER'">
+              <app-new-task></app-new-task>
+            </li>
+            <li role="menuitem">
+              <button type="button" class="btn  btn-link" data-toggle="modal" data-target="#exampleModal"
+                      onclick="window.location.href='/home'">
+                <i class="fa fa-tasks fa-31" style="color:black">Get tasks</i>
+              </button>
+            </li>
+
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item ">
+        <div class="btn-group" dropdown>
+          <button id="button-bas" dropdownToggle   type="button" class="btn btn-link dropdown-toggle"
+                  style="color: black;" aria-controls="dropdown-basic">
+            <i class="fa fa-user fa-31" style="color:black">User</i>
+            <span class="caret"></span>
+          </button>
+          <ul id="dropdown-sic" *dropdownMenu class="dropdown-menu"
+              role="menu" aria-labelledby="button-basic">
+            <li role="menuitem" >
+              <app-new-user></app-new-user>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <div class="btn-group" dropdown>
+          <button id="button-bd" dropdownToggle type="button" class="btn btn-link dropdown-toggle"
+                  style="color: black;" aria-controls="dropdown-basic">
+            <i class="fa fa-user-circle fa-2x" style="color:black"></i>
+            <span class="caret"></span>
+          </button>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+              role="menu" aria-labelledby="button-basic">
+            <li role="menuitem">
+              <app-edit-user></app-edit-user>
+            </li>
+            <li role="menuitem"><a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out fa-1x"
+                                                                               style="color: black">Log out</i></a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <app-time></app-time>
+      </li>
+    </ul>
+  </div>
+</nav>
